@@ -306,10 +306,12 @@ Yes I saw some unusual spikes which I later found belonged to the category for w
 # Bivariate Plots Section
 ```{r echo=FALSE, Bivariate_Plots}
 
-LoanData$ProsperRating..Alpha. <- factor(LoanData$ProsperRating..Alpha., levels = c("AA", "A", "B", "C", "D", "E", "HR") )
+LoanData$ProsperRating..Alpha. <- factor(LoanData$ProsperRating..Alpha.,
+                                         levels = c("AA", "A", "B", "C", "D", "E", "HR") )
 
 #18. Lender Yield vs Prosper Rating
-ggplot(aes( x = ProsperRating..Alpha., y = LenderYield ), data = subset(LoanData, ProsperRating..Alpha. != "")) +
+ggplot(aes( x = ProsperRating..Alpha., y = LenderYield ), 
+       data = subset(LoanData, ProsperRating..Alpha. != "")) +
   geom_boxplot() + 
     ggtitle("Lender Yield vs Prosper Rating")
 
@@ -320,7 +322,8 @@ There's a clear relation between the two, the higher the lender yield, poorer is
 ```{r echo=FALSE}
 
 #19. Loan Orignal Amount vs Prosper Rating
-ggplot(aes( x = ProsperRating..Alpha., y = LoanOriginalAmount ), data = subset(LoanData, ProsperRating..Alpha. != "")) +
+ggplot(aes( x = ProsperRating..Alpha., y = LoanOriginalAmount ), 
+       data = subset(LoanData, ProsperRating..Alpha. != "")) +
   geom_boxplot()  + 
     coord_cartesian(ylim = c(0,20000)) + 
       ggtitle("Loan Orignal Amount vs Prosper Rating")
@@ -332,7 +335,8 @@ The Median Loan Amount appears to decrease as the rating gets poorer.
 ```{r echo=FALSE}
 
 #20. Borrower Rate vs Prosper Rating
-ggplot(aes(x = ProsperRating..Alpha., y = BorrowerRate), data = subset(LoanData, ProsperRating..Alpha. != "")) +
+ggplot(aes(x = ProsperRating..Alpha., y = BorrowerRate), 
+       data = subset(LoanData, ProsperRating..Alpha. != "")) +
   geom_boxplot() +
     ggtitle("Borrower Rate vs Prosper Rating")
 
@@ -343,7 +347,8 @@ The borrower rate actually is quite similar to the Lender Yield. So, the relatio
 ```{r echo=FALSE}
 
 #21. Monthly Income of Borrower vs Prosper Rating
-ggplot(aes(x = ProsperRating..Alpha., y = StatedMonthlyIncome), data = subset(LoanData, ProsperRating..Alpha. != "")) +
+ggplot(aes(x = ProsperRating..Alpha., y = StatedMonthlyIncome), 
+       data = subset(LoanData, ProsperRating..Alpha. != "")) +
   geom_boxplot() +
    coord_cartesian(ylim = c(0,10000)) +
     ggtitle("Monthly Income of Borrower vs Prosper Rating")
@@ -355,7 +360,8 @@ The Monthly Income of the borrower shows a slight decrease as the rating gets po
 ```{r echo=FALSE}
 
 #22. Monthly Income of Borrower vs Original Amount of the LOan
-ggplot(aes(y = StatedMonthlyIncome, x = LoanOriginalAmount), data = subset(LoanData, !is.na(StatedMonthlyIncome))) +
+ggplot(aes(y = StatedMonthlyIncome, x = LoanOriginalAmount), 
+       data = subset(LoanData, !is.na(StatedMonthlyIncome))) +
   geom_point( alpha = 1/20, position = position_jitter(h = 0) ) + 
       coord_cartesian(ylim = c(0, 50000)) +
           geom_smooth() +
@@ -501,13 +507,14 @@ The trend observed isn't so clear but the loan amount and monthly income seem to
 ```{r echo=FALSE}
 
 #31. Lender Yield vs Borrower Rate vs Prosper Rating
-ggplot(aes(x = LenderYield, y = BorrowerRate, color = ProsperRating..Alpha.),
+ggplot(aes(x = ProsperRating..Alpha., y = BorrowerRate, color = LenderYield),
        data = subset(LoanData, ProsperRating..Alpha. != "" )) +
   geom_point(alpha = 1/2, position = position_jitter(h=0)) +
     ggtitle("Lender Yield vs Borrower Rate vs Prosper Rating")
 
 ```
-There's a clear relation between borrower rate and lender's yield which has been verified here ( Their values are near equal or both lie on the same straight line). The rating gets poorer as these values increase.
+
+There's a clear relation between borrower rate and lender's yield which has been verified here. The rating gets poorer as these values increase.
 
 ```{r echo=FALSE}
 
@@ -562,7 +569,8 @@ We see a sudden decrease in 2009. Doing a quick Google search, we now understand
 ### Plot Two
 ```{r echo=FALSE, Plot_Two , fig.width = 12, fig.height = 8}
 
-ggplot(aes(y = StatedMonthlyIncome, x = LoanOriginalAmount), data = subset(LoanData, !is.na(StatedMonthlyIncome))) +
+ggplot(aes(y = StatedMonthlyIncome, x = LoanOriginalAmount), 
+       data = subset(LoanData, !is.na(StatedMonthlyIncome))) +
   geom_point( alpha = 1/20, position = position_jitter(h = 0) ) + 
       coord_cartesian(ylim = c(0, 30000)) +
           geom_smooth() +
@@ -583,6 +591,7 @@ ggplot(aes(x = LenderYield, y = LoanOriginalAmount, color = ProsperRating..Alpha
        data = subset(LoanData, !is.na(ProsperRating..Alpha.) & !is.na(LoanOriginalAmount) )) +
   geom_point(alpha = 1/2, position = position_jitter(h=0) ) +
     coord_cartesian(ylim = c(0, 20000)) + 
+      ylab("Loan Original Amount [USD]") +
       ggtitle("LenderYield vs LoanOriginalAmount vs ProsperRating")
 
 ```
