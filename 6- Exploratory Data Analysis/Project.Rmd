@@ -1,6 +1,5 @@
 Exploratory data analysis on Prosper Loan Dataset 
 ========================================================
-####by Joy Lal Chattaraj
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
 # Load all of the packages that you end up using
